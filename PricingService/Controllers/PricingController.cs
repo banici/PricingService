@@ -14,13 +14,7 @@ namespace PricingService.Controllers
         
         public Discount Discount;
 
-        Customer customer = new Customer
-        {
-            Id = 1,
-            MemberPriceServiceA = 5,
-            StartService = new DateTime(2021, 04, 01),
-            EndService = new DateTime(2021, 04, 10),
-        };
+        Customer customer = new Customer();
 
         public PricingController(IPricingServiceBLL _pricingService)
         {
@@ -85,7 +79,7 @@ namespace PricingService.Controllers
             if (Id != null || customer.Id != Id)
             {
 
-                var currentPrice = customer.PaymentPlan(service);
+                var currentPrice = pricingService.PaymentPlan(customer, service);
 
                 customer.AccountBalance += currentPrice * pricingService.WorkingServiceDay(startDate, endDate, service);
 

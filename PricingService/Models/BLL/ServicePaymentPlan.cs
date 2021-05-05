@@ -8,7 +8,7 @@ namespace PricingService.Models.BLL
         protected virtual double ServiceA { get { return 0.2; } }
         protected virtual double ServiceB { get { return 0.4; } }
         protected virtual double ServiceC { get { return 0.5; } }
-        public virtual double PaymentPlan(PricingServiceType service)
+        public virtual double PaymentPlan(Customer customer, PricingServiceType service)
         {
             switch (service)
             {

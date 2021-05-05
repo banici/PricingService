@@ -31,26 +31,26 @@ namespace PricingService.Models
         }
 
 
-        public override double PaymentPlan(PricingServiceType service)
-        {
-            switch (service)
-            {
-                case PricingServiceType.A:
-                          // MemberDiscount = Discount.DiscountServiceA != null ? Discount.DiscountServiceA : 0;
-                    return MemberPriceServiceA > 0 ? MemberPriceServiceA : base.ServiceA;
+        //public override double PaymentPlan(PricingServiceType service)
+        //{
+        //    switch (service)
+        //    {
+        //        case PricingServiceType.A:
+        //                  // MemberDiscount = Discount.DiscountServiceA != null ? Discount.DiscountServiceA : 0;
+        //            return MemberPriceServiceA > 0 ? MemberPriceServiceA : base.ServiceA;
 
-                case PricingServiceType.B:
-                           //MemberDiscount = Discount.DiscountServiceB.Value;
-                    return MemberPriceServiceB > 0 ? MemberPriceServiceB : base.ServiceB;
+        //        case PricingServiceType.B:
+        //                   //MemberDiscount = Discount.DiscountServiceB.Value;
+        //            return MemberPriceServiceB > 0 ? MemberPriceServiceB : base.ServiceB;
 
-                case PricingServiceType.C:
-                           //MemberDiscount = Discount.DiscountServiceC.Value;
-                    return MemberPriceServiceC > 0 ? MemberPriceServiceC : base.ServiceC;
+        //        case PricingServiceType.C:
+        //                   //MemberDiscount = Discount.DiscountServiceC.Value;
+        //            return MemberPriceServiceC > 0 ? MemberPriceServiceC : base.ServiceC;
 
-                default: throw new Exception("Service type input incorrect.");
-            }
+        //        default: throw new Exception("Service type input incorrect.");
+        //    }
 
-        }
+        //}
 
     }
 }

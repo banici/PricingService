@@ -8,6 +8,7 @@ namespace PricingService.Models.Repo
         int TotalDays(DateTime start, DateTime end);
         int WeekDays(DateTime start, DateTime end);
         int WorkingServiceDay(DateTime start, DateTime end, PricingServiceType service);
+        double PaymentPlan(Customer customer, PricingServiceType service);
 
     }
 }

@@ -41,5 +41,26 @@ namespace PricingService.Models.BLL
             return WeekDays(start, end);
         }
 
+        public override double PaymentPlan(Customer customer, PricingServiceType service)
+        {
+            switch (service)
+            {
+                case PricingServiceType.A:
+                    // MemberDiscount = Discount.DiscountServiceA != null ? Discount.DiscountServiceA : 0;
+                    return customer.MemberPriceServiceA > 0 ? customer.MemberPriceServiceA : base.ServiceA;
+
+                case PricingServiceType.B:
+                    //MemberDiscount = Discount.DiscountServiceB.Value;
+                    return customer.MemberPriceServiceB > 0 ? customer.MemberPriceServiceB : base.ServiceB;
+
+                case PricingServiceType.C:
+                    //MemberDiscount = Discount.DiscountServiceC.Value;
+                    return customer.MemberPriceServiceC > 0 ? customer.MemberPriceServiceC : base.ServiceC;
+
+                default: throw new Exception("Service type input incorrect.");
+            }
+
+        }
+
     }
 }
