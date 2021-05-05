@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "oVLaocF6eKlnWrwNx2+NDysCStqDHMsIQUJXBKsNmi47lGrut+JPgPTH2VRilVSUE0TLoNE9gWN5bupdGFIbyw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Spoket\\source\\repos\\PricingService\\PricingService\\PricingService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Spoket\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
