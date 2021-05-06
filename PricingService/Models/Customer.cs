@@ -5,20 +5,13 @@ using System;
 
 namespace PricingService.Models
 {
-    public class Customer : ServicePaymentPlan
+    public class Customer// : ServicePaymentPlan
     {
-        public Customer()
-        {
-            Discount discount = new Discount();
-        }
         public int Id { get; set; }
         public int FreeDays { get; set; }
         public double MemberPriceServiceA { get; set; }
         public double MemberPriceServiceB { get; set; }
         public double MemberPriceServiceC { get; set; }
-        public DateTime StartService { get; set; }
-        public DateTime EndService { get; set; }
-        public Discount Discount { get; set; }
         public double? MemberDiscount { get; set; }
 
         private double accountBalance;

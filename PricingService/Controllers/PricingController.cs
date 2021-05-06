@@ -16,8 +16,8 @@ namespace PricingService.Controllers
         {
             CustomerId = 1,
             DiscountServiceA = 0.5,
-            StartDiscount = new DateTime(2021-01-01),
-            EndDiscount = new DateTime(2021-01-10)
+            StartDiscount = new DateTime(2021-02-01),
+            EndDiscount = new DateTime(2021-02-10)
         };
 
         Customer customer = new Customer
