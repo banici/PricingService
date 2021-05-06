@@ -46,15 +46,12 @@ namespace PricingService.Models.BLL
             switch (service)
             {
                 case PricingServiceType.A:
-                     //customer.MemberDiscount = customer.Discount.DiscountServiceA.Value != null ? customer.Discount.DiscountServiceA.Value : 0;
                     return customer.MemberPriceServiceA > 0 ? customer.MemberPriceServiceA : base.ServiceA;
 
                 case PricingServiceType.B:
-                    //MemberDiscount = Discount.DiscountServiceB.Value;
                     return customer.MemberPriceServiceB > 0 ? customer.MemberPriceServiceB : base.ServiceB;
 
                 case PricingServiceType.C:
-                    //MemberDiscount = Discount.DiscountServiceC.Value;
                     return customer.MemberPriceServiceC > 0 ? customer.MemberPriceServiceC : base.ServiceC;
 
                 default: throw new Exception("Service type input incorrect.");

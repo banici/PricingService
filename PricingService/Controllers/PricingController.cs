@@ -16,8 +16,8 @@ namespace PricingService.Controllers
         {
             CustomerId = 1,
             DiscountServiceA = 0.5,
-            StartDiscount = new DateTime(2021-02-01),
-            EndDiscount = new DateTime(2021-02-10)
+            StartDiscount = new DateTime(2021,02,01),
+            EndDiscount = new DateTime(2021,02,10)
         };
 
         Customer customer = new Customer
@@ -90,15 +90,15 @@ namespace PricingService.Controllers
                 
                 var currentPrice = pricingService.PaymentPlan(customer, service);
 
-                discount.DiscountCalculator(customer, currentPrice);
-
                 customer.AccountBalance += currentPrice * pricingService.WorkingServiceDay(startDate, endDate, service);
+
+                if(customer.FreeDays > 0 || customer.MemberDiscount > 0)
 
                 customer.AccountBalance -= currentPrice * customer.FreeDays;
 
-                //customer.AccountBalance -= Discount.DiscountCalculator(currentPrice, Discount.StartDiscount, Discount.EndDiscount);
+                customer.AccountBalance -= discount.DiscountCalculator(customer, currentPrice, service);
 
-                
+
 
                 return Ok(customer.AccountBalance);
 

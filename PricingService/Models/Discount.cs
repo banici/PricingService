@@ -13,19 +13,17 @@ namespace PricingService.Models
         public double? DiscountServiceC { get; set; }
         public int CustomerId { get; set; }
 
-        public double DiscountCalculator(Customer customer, double rate /*double rate, DateTime start, DateTime end*/)
+        public double DiscountCalculator(Customer customer, double rate, PricingServiceType service)
         {
             if(customer.Id == CustomerId)
             {
-                customer.MemberDiscount = DiscountServiceA;
-
-                var discount = customer.MemberDiscount;
-
-                if (discount > 0)
+                customer.MemberDiscount = ServiceDiscount(service);
+               
+                if (customer.MemberDiscount > 0)
                 {
                     int discountPeriod = (int)(EndDiscount - StartDiscount.AddDays(-1)).TotalDays;
 
-                    return (rate * discountPeriod) * discount.Value;
+                    return (rate * discountPeriod) * customer.MemberDiscount.Value;
                 }
             }
             
@@ -34,22 +32,22 @@ namespace PricingService.Models
 
         }
 
-        //public double ServiceDiscount(PricingServiceType service)
-        //{
-        //    switch (service)
-        //    {
-        //        case PricingServiceType.A:
-        //            return DiscountServiceA;
+        public double ServiceDiscount(PricingServiceType service)
+        {
+            switch (service)
+            {
+                case PricingServiceType.A:
+                    return DiscountServiceA.Value;
 
-        //        case PricingServiceType.B:
-        //            return DiscountServiceB;
+                case PricingServiceType.B:
+                    return DiscountServiceB.Value;
 
-        //        case PricingServiceType.C:
-        //            return DiscountServiceC;
+                case PricingServiceType.C:
+                    return DiscountServiceC.Value;
 
-        //        default: throw new Exception("Service type input incorrect.");
-        //    }
+                default: throw new Exception("Service type input incorrect.");
+            }
 
-        //}
+        }
     }
 }

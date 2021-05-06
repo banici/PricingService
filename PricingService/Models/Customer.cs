@@ -27,27 +27,19 @@ namespace PricingService.Models
             }
         }
 
+        public void FreeDaySubtraction(Customer customer, double rate)
+        {
+            for(int i = 0; i < customer.FreeDays; i++)
+            {
+                if(customer.AccountBalance <= 0)
+                {
+                    customer.AccountBalance = 0;
+                    break;
+                }
 
-        //public override double PaymentPlan(PricingServiceType service)
-        //{
-        //    switch (service)
-        //    {
-        //        case PricingServiceType.A:
-        //                  // MemberDiscount = Discount.DiscountServiceA != null ? Discount.DiscountServiceA : 0;
-        //            return MemberPriceServiceA > 0 ? MemberPriceServiceA : base.ServiceA;
-
-        //        case PricingServiceType.B:
-        //                   //MemberDiscount = Discount.DiscountServiceB.Value;
-        //            return MemberPriceServiceB > 0 ? MemberPriceServiceB : base.ServiceB;
-
-        //        case PricingServiceType.C:
-        //                   //MemberDiscount = Discount.DiscountServiceC.Value;
-        //            return MemberPriceServiceC > 0 ? MemberPriceServiceC : base.ServiceC;
-
-        //        default: throw new Exception("Service type input incorrect.");
-        //    }
-
-        //}
-
+                customer.AccountBalance -= rate;
+                customer.FreeDays--;
+            }
+        }
     }
 }
