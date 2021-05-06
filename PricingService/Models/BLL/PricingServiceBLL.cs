@@ -46,7 +46,7 @@ namespace PricingService.Models.BLL
             switch (service)
             {
                 case PricingServiceType.A:
-                    // MemberDiscount = Discount.DiscountServiceA != null ? Discount.DiscountServiceA : 0;
+                     //customer.MemberDiscount = customer.Discount.DiscountServiceA.Value != null ? customer.Discount.DiscountServiceA.Value : 0;
                     return customer.MemberPriceServiceA > 0 ? customer.MemberPriceServiceA : base.ServiceA;
 
                 case PricingServiceType.B:

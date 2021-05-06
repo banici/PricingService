@@ -21,11 +21,11 @@ namespace TestApp
         {
             // Arrange
 
-            var price = customer.PaymentPlan(PricingServiceType.A);
+           // var price = customer.PaymentPlan(PricingServiceType.A);
 
 
             // Act
-            var sum = price;
+            var sum = 0;
             
             // Assert
 

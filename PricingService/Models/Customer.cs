@@ -7,6 +7,10 @@ namespace PricingService.Models
 {
     public class Customer : ServicePaymentPlan
     {
+        public Customer()
+        {
+            Discount discount = new Discount();
+        }
         public int Id { get; set; }
         public int FreeDays { get; set; }
         public double MemberPriceServiceA { get; set; }

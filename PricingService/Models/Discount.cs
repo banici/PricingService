@@ -5,24 +5,30 @@ namespace PricingService.Models
 {
     public class Discount
     {
+        public int Id { get; set; }
         public DateTime StartDiscount { get; set; }
         public DateTime EndDiscount { get; set; }
         public double? DiscountServiceA { get; set; }
         public double? DiscountServiceB { get; set; }
         public double? DiscountServiceC { get; set; }
-        static Customer Customer { get; set; }
+        public int CustomerId { get; set; }
 
-        public static double DiscountCalculator(double rate, DateTime start, DateTime end)
+        public double DiscountCalculator(Customer customer, double rate /*double rate, DateTime start, DateTime end*/)
         {
-
-            var discount = Customer.MemberDiscount;
-
-            if (discount > 0)
+            if(customer.Id == CustomerId)
             {
-                int discountPeriod = (int)(end - start.AddDays(-1)).TotalDays;
+                customer.MemberDiscount = DiscountServiceA;
 
-                return (rate * discountPeriod) * discount.Value;
+                var discount = customer.MemberDiscount;
+
+                if (discount > 0)
+                {
+                    int discountPeriod = (int)(EndDiscount - StartDiscount.AddDays(-1)).TotalDays;
+
+                    return (rate * discountPeriod) * discount.Value;
+                }
             }
+            
 
             return 0;
 

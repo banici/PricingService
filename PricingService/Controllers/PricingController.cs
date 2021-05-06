@@ -11,10 +11,21 @@ namespace PricingService.Controllers
     public class PricingController : ControllerBase
     {
         private readonly IPricingServiceBLL pricingService;
-        
-        public Discount Discount;
 
-        Customer customer = new Customer();
+        Discount discount = new Discount
+        {
+            CustomerId = 1,
+            DiscountServiceA = 0.5,
+            StartDiscount = new DateTime(2021-01-01),
+            EndDiscount = new DateTime(2021-01-10)
+        };
+
+        Customer customer = new Customer
+        {
+            Id = 1,
+            FreeDays = 5,
+            MemberPriceServiceA = 10,
+        };
 
         public PricingController(IPricingServiceBLL _pricingService)
         {
@@ -33,8 +44,6 @@ namespace PricingService.Controllers
                     Id = customerId,
                     startDate = start,
                     endDate = end,
-                    //startDate = customer.StartService, // remove later
-                    //endDate = customer.EndService, // remove later
                     service = PricingServiceType.A
                 });
 
@@ -78,8 +87,10 @@ namespace PricingService.Controllers
 
             if (Id != null || customer.Id != Id)
             {
-
+                
                 var currentPrice = pricingService.PaymentPlan(customer, service);
+
+                discount.DiscountCalculator(customer, currentPrice);
 
                 customer.AccountBalance += currentPrice * pricingService.WorkingServiceDay(startDate, endDate, service);
 
@@ -87,7 +98,7 @@ namespace PricingService.Controllers
 
                 //customer.AccountBalance -= Discount.DiscountCalculator(currentPrice, Discount.StartDiscount, Discount.EndDiscount);
 
-
+                
 
                 return Ok(customer.AccountBalance);
 
