@@ -27,6 +27,9 @@ namespace PricingService.Models
             }
         }
 
+
+        //This method rounds up the balance to 0 once it reaches 0 or as soon it goes below 0.
+        //Also subtract the amount of freedays stored in customer so it can save up leftover days in cases 
         public void FreeDaySubtraction(Customer customer, double rate)
         {
             for(int i = 0; i < customer.FreeDays; i++)
