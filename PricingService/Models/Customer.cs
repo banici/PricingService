@@ -32,7 +32,7 @@ namespace PricingService.Models
         //Also subtract the amount of freedays stored in customer so it can save up leftover days in cases 
         public void FreeDaySubtraction(Customer customer, double rate)
         {
-            for(int i = 0; i < customer.FreeDays; i++)
+            while(customer.FreeDays > 0)
             {
                 if(customer.AccountBalance <= 0)
                 {

@@ -17,19 +17,31 @@ namespace TestApp
         }
 
         [Test]
-        public void Test1()
+        public void FreeDaySubtraction()
         {
             // Arrange
-
-           // var price = customer.PaymentPlan(PricingServiceType.A);
-
+            int accountBalance = 40;
+            int rate = 13;
+            int freeDays = 0;
 
             // Act
-            var sum = 0;
-            
-            // Assert
+            while (freeDays > 0)
+            {
+                if (accountBalance <= 0)
+                {
+                    accountBalance = 0;
+                    break;
+                }
 
-            Assert.AreEqual(50, sum);
+                accountBalance -= rate;
+                freeDays--;
+            }
+
+            // Assert
+            
+            //Assert.AreEqual(freeDays, 5);
+            Assert.AreEqual(accountBalance, 5);
+
         }
 
         //[Test]

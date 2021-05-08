@@ -92,16 +92,18 @@ namespace PricingService.Controllers
 
                 customer.AccountBalance += currentPrice * pricingService.WorkingServiceDay(startDate, endDate, service);
 
-                if(customer.FreeDays > 0 || customer.MemberDiscount > 0)
 
-                customer.AccountBalance -= currentPrice * customer.FreeDays;
-
-                customer.AccountBalance -= discount.DiscountCalculator(customer, currentPrice, service);
-
+                if (customer.Id == discount.CustomerId)
+                {                    
+                    customer.AccountBalance -= discount.DiscountCalculator(customer, currentPrice, service);
+                }
+                else if(customer.FreeDays > 0)
+                {
+                    customer.FreeDaySubtraction(customer, currentPrice);
+                }
 
 
                 return Ok(customer.AccountBalance);
-
                 
             }
 

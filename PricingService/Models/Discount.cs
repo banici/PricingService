@@ -15,19 +15,17 @@ namespace PricingService.Models
 
         public double DiscountCalculator(Customer customer, double rate, PricingServiceType service)
         {
-            if(customer.Id == CustomerId)
+        
+            customer.MemberDiscount = ServiceDiscount(service);
+
+            if (customer.MemberDiscount > 0)
             {
-                customer.MemberDiscount = ServiceDiscount(service);
-               
-                if (customer.MemberDiscount > 0)
-                {
-                    int discountPeriod = (int)(EndDiscount - StartDiscount.AddDays(-1)).TotalDays;
+                int discountPeriod = (int)(EndDiscount - StartDiscount.AddDays(-1)).TotalDays;
 
-                    return (rate * discountPeriod) * customer.MemberDiscount.Value;
-                }
+                return (rate * discountPeriod) * customer.MemberDiscount.Value;
+
             }
-            
-
+        
             return 0;
 
         }
