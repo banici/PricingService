@@ -5,7 +5,7 @@ using System;
 
 namespace PricingService.Models
 {
-    public class Customer// : ServicePaymentPlan
+    public class Customer
     {
         public int Id { get; set; }
         public int FreeDays { get; set; }

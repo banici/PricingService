@@ -3,6 +3,7 @@ using PricingService.Models;
 using PricingService.Models.Enums;
 using PricingService.Models.Repo;
 using System;
+using System.Collections.Generic;
 
 namespace PricingService.Controllers
 {
@@ -12,21 +13,8 @@ namespace PricingService.Controllers
     {
         private readonly IPricingServiceBLL pricingService;
 
-        Discount discount = new Discount
-        {
-            CustomerId = 1,
-            DiscountServiceA = 0.5,
-            StartDiscount = new DateTime(2021,02,01),
-            EndDiscount = new DateTime(2021,02,10)
-        };
-
-        Customer customer = new Customer
-        {
-            Id = 1,
-            FreeDays = 5,
-            MemberPriceServiceA = 10,
-        };
-
+        private readonly Discount discount;
+        private readonly Customer customer;
         public PricingController(IPricingServiceBLL _pricingService)
         {
             pricingService = _pricingService;
@@ -91,13 +79,12 @@ namespace PricingService.Controllers
                 var currentPrice = pricingService.PaymentPlan(customer, service);
 
                 customer.AccountBalance += currentPrice * pricingService.WorkingServiceDay(startDate, endDate, service);
-
-
-                if (customer.Id == discount.CustomerId)
+                
+                if (discount.CustomerId == customer.Id)
                 {                    
                     customer.AccountBalance -= discount.DiscountCalculator(customer, currentPrice, service);
                 }
-                else if(customer.FreeDays > 0)
+                if(customer.FreeDays > 0)
                 {
                     customer.FreeDaySubtraction(customer, currentPrice);
                 }
