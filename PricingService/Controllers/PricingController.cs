@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PricingService.Models;
+using PricingService.Models.Dto;
 using PricingService.Models.Enums;
 using PricingService.Models.Repo;
 using System;
@@ -13,33 +14,52 @@ namespace PricingService.Controllers
     public class PricingController : ControllerBase
     {
         private readonly IPricingServiceBLL pricingService;
-        private readonly Discount discount;
-        List<Customer> customerList = new List<Customer>();
-        Customer customer = new Customer();
         public PricingController(IPricingServiceBLL _pricingService)
         {
             pricingService = _pricingService;
         }
 
-        [Route("PostCustomer")]
-        public IActionResult PostCustomerAndDiscountForTesting(Customer _customer)
-        {
-            Customer kustomer = new Customer();
-            kustomer.Id = _customer.Id;
-            kustomer.FreeDays = _customer.FreeDays;
-            kustomer.MemberPriceServiceA = _customer.MemberPriceServiceA;
-            kustomer.MemberPriceServiceB = _customer.MemberPriceServiceB;
-            kustomer.MemberPriceServiceC = _customer.MemberPriceServiceC;
 
-            customerList.Add(kustomer);
+
+        static List<Discount> discountList = new List<Discount>();  // For demo purpose instead of db context
+        static Discount discount = new Discount();                  // For demo purpose instead of db context
+        static List<Customer> customerList = new List<Customer>();  // For demo purpose instead of db context
+        static Customer customer = new Customer();                  // For demo purpose instead of db context
+        static public DemostrationDto demoDto = new DemostrationDto();
+        // This postmethod executes a demostration of this program when using it on Postman
+        // it should be replaced with a database for the purpose of this program. But for now it shows only a Demo.
+        [Route("PostDemo")]
+        public IActionResult PostDemo()
+        {
+
+            Customer customer1 = new Customer
+            {
+                Id = demoDto.Customer.Id,
+                FreeDays = demoDto.Customer.FreeDays,
+                MemberPriceServiceA = demoDto.Customer.MemberPriceServiceA,
+                MemberPriceServiceB = demoDto.Customer.MemberPriceServiceB,
+                MemberPriceServiceC = demoDto.Customer.MemberPriceServiceC
+            };
+            customerList.Add(customer1);
+
+            //demoDto.Discount = new Discount
+            //{
+            //    CustomerId = testDemo.Customer.Id,
+            //    DiscountServiceA = testDemo.Discount.DiscountServiceA,
+            //    DiscountServiceB = testDemo.Discount.DiscountServiceB,
+            //    DiscountServiceC = testDemo.Discount.DiscountServiceC,
+            //    StartDiscount = testDemo.Discount.StartDiscount,
+            //    EndDiscount = testDemo.Discount.EndDiscount
+            //};
+            //discountList.Add(demoDto.Discount);
 
             return RedirectToAction(
                 "ServiceManager",
                 new
                 {
-                    Id = customer.Id,
-                    startDate = new DateTime(2021, 02, 01),
-                    endDate = new DateTime(2021, 02, 10),
+                    Id = demoDto.Customer.Id,
+                    startDate = demoDto.Start, // :0
+                    endDate = demoDto.End, // :0
                     service = PricingServiceType.A
                 });
         }
@@ -95,7 +115,9 @@ namespace PricingService.Controllers
         [Route("ServiceManager")]
         public IActionResult ServiceManager(int? Id, DateTime startDate, DateTime endDate, PricingServiceType service)
         {
-            customer = customerList.Where(x => x.Id == Id).FirstOrDefault();
+            customer = customerList.Where(c => c.Id == Id).FirstOrDefault();
+            discount = discountList.Where(d => d.CustomerId == customer.Id).FirstOrDefault();
+
             if (Id != null || customer.Id != Id)
             {
                 
