@@ -8,6 +8,7 @@ namespace PricingService.Models
         public int Id { get; set; }
         public DateTime StartDiscount { get; set; }
         public DateTime EndDiscount { get; set; }
+        public int TotalDays { get; set; }
         public double DiscountServiceA { get; set; }
         public double DiscountServiceB { get; set; }
         public double DiscountServiceC { get; set; }
@@ -20,9 +21,13 @@ namespace PricingService.Models
 
             if (customer.MemberDiscount > 0)
             {
-                int discountPeriod = (int)(EndDiscount - StartDiscount.AddDays(-1)).TotalDays;
 
-                return (rate * discountPeriod) * customer.MemberDiscount.Value;
+                if(service != PricingServiceType.C)
+                {
+                    return (rate * TotalDays) * customer.MemberDiscount.Value;
+                }
+
+                return (rate * TotalDays) * customer.MemberDiscount.Value;
 
             }
         

@@ -29,7 +29,7 @@ namespace PricingService.Controllers
         // This postmethod executes a demostration of this program when using it on Postman
         // it should be replaced with a database instead for the purpose of this program. But for now it shows only a Demo.
         [Route("PostDemo")]
-        public IActionResult PostDemo(DemostrationDto dt)
+        public IActionResult PostDemo([FromBody] DemostrationDto dt)
         {
 
             customerList.Add(dt.Customer); 
@@ -110,7 +110,8 @@ namespace PricingService.Controllers
                 customer.AccountBalance += currentPrice * pricingService.WorkingServiceDay(startDate, endDate, service);
                 
                 if (discount.CustomerId == customer.Id)
-                {                    
+                {
+                    discount.TotalDays = pricingService.WorkingServiceDay(discount.StartDiscount, discount.EndDiscount, service);
                     customer.AccountBalance -= discount.DiscountCalculator(customer, currentPrice, service);
                 }
                 if(customer.FreeDays > 0)
