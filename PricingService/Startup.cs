@@ -23,6 +23,7 @@ namespace PricingService
             services.AddControllers();
 
             services.AddSingleton<IPricingServiceBLL, PricingServiceBLL>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

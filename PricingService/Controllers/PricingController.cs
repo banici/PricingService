@@ -25,42 +25,26 @@ namespace PricingService.Controllers
         static Discount discount = new Discount();                  // For demo purpose instead of db context
         static List<Customer> customerList = new List<Customer>();  // For demo purpose instead of db context
         static Customer customer = new Customer();                  // For demo purpose instead of db context
-        static public DemostrationDto demoDto = new DemostrationDto();
+        
         // This postmethod executes a demostration of this program when using it on Postman
-        // it should be replaced with a database for the purpose of this program. But for now it shows only a Demo.
+        // it should be replaced with a database instead for the purpose of this program. But for now it shows only a Demo.
         [Route("PostDemo")]
-        public IActionResult PostDemo()
+        public IActionResult PostDemo(DemostrationDto dt)
         {
 
-            Customer customer1 = new Customer
-            {
-                Id = demoDto.Customer.Id,
-                FreeDays = demoDto.Customer.FreeDays,
-                MemberPriceServiceA = demoDto.Customer.MemberPriceServiceA,
-                MemberPriceServiceB = demoDto.Customer.MemberPriceServiceB,
-                MemberPriceServiceC = demoDto.Customer.MemberPriceServiceC
-            };
-            customerList.Add(customer1);
+            customerList.Add(dt.Customer); 
 
-            //demoDto.Discount = new Discount
-            //{
-            //    CustomerId = testDemo.Customer.Id,
-            //    DiscountServiceA = testDemo.Discount.DiscountServiceA,
-            //    DiscountServiceB = testDemo.Discount.DiscountServiceB,
-            //    DiscountServiceC = testDemo.Discount.DiscountServiceC,
-            //    StartDiscount = testDemo.Discount.StartDiscount,
-            //    EndDiscount = testDemo.Discount.EndDiscount
-            //};
-            //discountList.Add(demoDto.Discount);
+            dt.Discount.CustomerId = dt.Customer.Id;
+            discountList.Add(dt.Discount);
 
             return RedirectToAction(
                 "ServiceManager",
                 new
                 {
-                    Id = demoDto.Customer.Id,
-                    startDate = demoDto.Start, // :0
-                    endDate = demoDto.End, // :0
-                    service = PricingServiceType.A
+                    Id = dt.Customer.Id,
+                    startDate = dt.Start,
+                    endDate = dt.End,
+                    service = dt.PricingServiceType
                 });
         }
 
